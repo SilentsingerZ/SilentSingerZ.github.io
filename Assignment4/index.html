@@ -42,7 +42,9 @@
 				</label>
 				<input id="comments"></p>
 				<p><button id="commentButton">Submit comment</button></p>
-				window.alert(Sorry! Posting comments is currently disabled.)
+				$("#commentButton").click(function() {
+    					window.alert(Sorry! Posting comments is currently disabled.)
+  				});
 			</div>
 		</div>
 	</body>
