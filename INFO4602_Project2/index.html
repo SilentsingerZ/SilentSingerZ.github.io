@@ -1,0 +1,440 @@
+<html>
+<head>
+    <title>INFO 4602 Project 2 Group 4</title>
+    <style type="text/css" href="project2.css"></style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!--Put your D3 import statement between these two lines-->
+    <script src="http://d3js.org/d3.v4.js" charset="utf-8"></script>
+    <!--Put your D3 import statement between these two lines-->
+    <!--Import Pure CSS module https://purecss.io/-->
+    <link rel="stylesheet" href="project2.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
+          integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
+          crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Finger Paint' rel='stylesheet'>
+</head>
+
+<body background="image/background.jpg">
+  <!--Apple Pure Menu Package/-->
+  <div class="pure-menu pure-menu-horizontal" id="tab_bar">
+    <style scoped>
+       .button-menu {
+         overflow: hidden;
+         display: inline-block;
+         font-size: 120%;
+         line-height: 2;
+         width: 220;
+         color: black;
+         background-color: white;
+         border: none;
+         outline: none;
+       }
+       .pure-button:hover{
+         background-color: grey;
+         color: white;
+       }
+   </style>
+    <button class="button-menu pure-button pure-button-active" id="part1">Student vs Year</button>
+    <button class="button-menu pure-button pure-button-active" id="part2">Score vs Major</button>
+    <button class="button-menu pure-button pure-button-active" id="part3_4">5th Asian Female</button>
+    <button class="button-menu pure-button pure-button-active" id="part5">Major vs Number</button>
+    <button class="button-menu pure-button pure-button-active" id="part6">Percentage in Major</button>
+  </div>
+
+  <div id="content">
+    <style scoped>
+       .extra {
+         font-family: inherit;
+         font-size: 150%;
+       }
+   </style>
+    <div id="partOne">
+        <h1>Student vs Year</h1>
+        <h2>Enrollment Year vs Student number with different races</h2>
+        <select id="data_select">
+          <option value=0>Asian</option>
+          <option value=1>Black/African American </option>
+          <option value=2>Native Hawaiian/Other Pacific Islande</option>
+          <option value=3>Hispanics</option>
+          <option value=4>American Indian/Alaska Native </option>
+          <option value=5>White</option>
+        </select>
+        <div id="linegraph">
+          <p id="lineLabel"></p>
+        </div>
+        <div class="extra" id="GeneralMode"><a href="index_orange.html">General Relationship between Enrollment Year and Student number</a>
+        </div>
+    </div>
+
+    <div id="partTwo">
+        <h1>Score vs Major: </h1>
+        <h2>Female Average SAT & ACT Math Score base on Years and Major</h2>
+        <p>This figure is just an overview and the widget is unfunctional. The full code is attached in the link below.</p>
+        <div class="extra" id="Original file"><a href="jupyter.html">Original File</a>
+        </div>
+        <div>
+          <img src="image/jupyter.jpg" alt="Hathaway's great plot" style="width:800px;height:700px;">
+        </div>
+    </div>
+
+    <div id="partThree">
+      <h1>5th Asian Female: </h1>
+      <h2>5th Asian Female Student/School year</h2>
+      <div id="linegraph3">
+        <p id="lineLabel3"></p>
+      </div>
+    </div>
+
+    <div id="partFive">
+      <h1>Major vs Number: </h1>
+      <h2>Student number in different Major</h2>
+      <div id="linegraph5">
+        <p id="lineLabel5"></p>
+      </div>
+    </div>
+
+
+    <div id="partSix">
+      <h1>Percentage of each race in different Major</h1>
+      <div>
+        <center>
+        <img id="image" src="image/BE.png" />
+        <select id="select_major">
+          <option value="image/BE.png">Biosystems Engineering</option>
+          <option value="image/CE.png">Computer Science </option>
+          <option value="image/EE.png">Electrical Engineering</option>
+          <option value="image/GD.png">Game Design</option>
+          <option value="image/MIS.png">Management Information Systems</option>
+          <option value="image/CE.png">Chemical Engineering</option>
+          <option value="image/Cyber.png">Cybersecurity</option>
+          <option value="image/ET.png">Engineering Technology</option>
+          <option value="image/ME.png">Mechanical Engineering</option>
+          <option value="image/info.png">Information Science</option>
+        </select>
+      </center>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+        // Student vs Year
+        part1(0);
+        var select=document.getElementById("data_select");
+        select.addEventListener("change",function(d){
+          // add an event listener to trigger the polt changes
+          part1(select.value);
+        });
+        function part1(value){
+          var div = document.getElementById('linegraph');
+          while(div.firstChild){
+            div.removeChild(div.firstChild);
+          }
+          var margin = {top:20, right: 20, bottom: 30, left: 50},
+              width = 700 - margin.left - margin.right,
+              height = 350 - margin.top - margin.bottom;
+          var xValue = function(d) { return parseFloat(d['x']);}, // data -> value
+          xScale = d3.scaleLinear().range([0, width]);
+          // setup y
+          var yValue = function(d) { return parseFloat(d['y']);}, // data -> value
+          yScale = d3.scaleLinear().range([height, 0]);
+          var svg = d3.select("#linegraph").append("svg")
+                      .attr("width", width + margin.left + margin.right)
+                      .attr("height", height + margin.top + margin.bottom)
+                      .append("g")
+                      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        var data_files=["https://raw.githubusercontent.com/SilentsingerZ/SilentSingerZ.github.io/master/INFO4602_Project2/data/Yonghao/Asian.csv",
+                        "https://raw.githubusercontent.com/SilentsingerZ/SilentSingerZ.github.io/master/INFO4602_Project2/data/Yonghao/Black.csv",
+                        "https://raw.githubusercontent.com/SilentsingerZ/SilentSingerZ.github.io/master/INFO4602_Project2/data/Yonghao/Hawaiian.csv",
+                        "https://raw.githubusercontent.com/SilentsingerZ/SilentSingerZ.github.io/master/INFO4602_Project2/data/Yonghao/Hispanics.csv",
+                        "https://raw.githubusercontent.com/SilentsingerZ/SilentSingerZ.github.io/master/INFO4602_Project2/data/Yonghao/Indian.csv",
+                        "https://raw.githubusercontent.com/SilentsingerZ/SilentSingerZ.github.io/master/INFO4602_Project2/data/Yonghao/White.csv"];
+        //load proper data file based on the selection
+        d3.csv(data_files[value], function(data){
+          xScale.domain([d3.min(data, xValue)-1, d3.max(data, xValue)+1]);
+          yScale.domain([d3.min(data, yValue)-10, d3.max(data, yValue)+10]);
+          data.sort(function(a,b){return a.x-b.x});
+          //tooltip for extra credit
+          var tooltip = d3.select("#linegraph").append("div").attr("id", "toolTip");
+          tooltip.style("position","relative").
+          style("height","auto").
+          style("font-size","14");
+
+          // draw dots
+          svg.selectAll(".dot")
+             .data(data)
+             .enter()
+             .append("circle")
+             .attr("class", "dot")
+             .attr("r", 8)
+             .attr("fill", "black")
+             .attr("cx", function(d){return xScale(d['x']);})
+             .attr("cy", function(d){return yScale(d['y']);})
+             .on("mouseover", function(d) {
+               //change dot color when mouse hove over
+               var dot = d3.select(this);
+               dot.style('fill','red')
+                  .attr('r',15);
+            //show tooltip
+               d3.select("#tooltip")
+                 .style("left", d3.mouse(this)[0]-width - 45)
+                 .style("top", d3.mouse(this)[1]-height - 50)
+                 .style("display","inline-block")
+                 .text("("+d.x+","+d.y+")");
+            })
+            .on("mouseout", function(d) {
+              //change back the color
+              var dot = d3.select(this);
+              dot.style('fill','black')
+                 .attr('r',8);
+              //hide tooltip
+              d3.select("#tooltip").style("display","none");
+            })
+            .on("click",function(d){
+              document.getElementById("lineLabel").innerHTML = "Values: "+'('+d.x+','+d.y+')';
+            });
+            var vline = d3.line()
+            .x(function(d) { return xScale(d['x']); })
+            .y(function(d) { return yScale(d['y']); });
+            svg.append("path")
+               .data([data])
+               .attr("fill", "none")
+               .attr("stroke", "red")
+               .attr("stroke-linejoin", "round")
+               .attr("stroke-linecap", "round")
+               .attr("stroke-width", 3)
+               .attr("d", vline(data));
+           // x-axis
+           svg.append("g")
+              .attr("transform", "translate(0," + height + ")")
+              .call(d3.axisBottom(xScale));
+           svg.append("text")
+              .attr("class", "label")
+              .text("X")
+              .attr("x", width)
+              .attr("y", height-5);
+           // y-axis
+           svg.append("g")
+              .call(d3.axisLeft(yScale));
+           svg.append("text")
+              .attr("class", "label")
+              .text("Y")
+              .attr("x", 5)
+              .attr("y", 0);
+         });
+       }
+
+
+
+
+        // 5th Asian Female:
+        part3(0);
+        function part3(value){
+          var div = document.getElementById('linegraph3');
+          while(div.firstChild){
+            div.removeChild(div.firstChild);
+          }
+          var margin = {top:20, right: 20, bottom: 30, left: 50},
+              width = 900- margin.left - margin.right,
+              height = 450 - margin.top - margin.bottom;
+          var xValue = function(d) { return parseFloat(d['x']);}, // data -> value
+          xScale = d3.scaleLinear().range([0, width]);
+          // setup y
+          var yValue = function(d) { return parseFloat(d['y']);}, // data -> value
+          yScale = d3.scaleLinear().range([height, 0]);
+          var svg = d3.select("#linegraph3").append("svg")
+                      .attr("width", width + margin.left + margin.right)
+                      .attr("height", height + margin.top + margin.bottom)
+                      .append("g")
+                      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        var data_files=["https://raw.githubusercontent.com/SilentsingerZ/SilentSingerZ.github.io/master/INFO4602_Project2/data/Gongyuan/anscombe1.csv"];
+        //load proper data file based on the selection
+        d3.csv(data_files[value], function(data){
+          xScale.domain([d3.min(data, xValue)-1, d3.max(data, xValue)+1]);
+          yScale.domain([d3.min(data, yValue)-1, d3.max(data, yValue)+1]);
+          data.sort(function(a,b){return a.x-b.x});
+          //tooltip for extra credit
+          var tooltip = d3.select("#linegraph3").append("div").attr("id", "toolTip");
+          tooltip.style("position","relative").
+          style("height","auto").
+          style("font-size","14");
+
+          // draw dots
+          svg.selectAll(".dot")
+             .data(data)
+             .enter()
+             .append("circle")
+             .attr("class", "dot")
+             .attr("r", 5)
+             .attr("fill", "blue")
+             .attr("cx", function(d){return xScale(d['x']);})
+             .attr("cy", function(d){return yScale(d['y']);})
+             .on("mouseover", function(d) {
+               //change dot color when mouse hove over
+               var dot = d3.select(this);
+               dot.style('fill','lightblue')
+                  .attr('r',5);
+            //show tooltip
+               d3.select("#tooltip")
+                 .style("left", d3.mouse(this)[0]-width - 45)
+                 .style("top", d3.mouse(this)[1]-height - 50)
+                 .style("display","inline-block")
+                 .text("("+d.x+","+d.y+")");
+            })
+            .on("mouseout", function(d) {
+              //change back the color
+              var dot = d3.select(this);
+              dot.style('fill','blue')
+                 .attr('r',5);
+              //hide tooltip
+              d3.select("#tooltip").style("display","none");
+            })
+            .on("click",function(d){
+              document.getElementById("lineLabel3").innerHTML = "Values: "+'('+d.x+','+d.y+')';
+            });
+            var vline = d3.line()
+            .x(function(d) { return xScale(d['x']); })
+            .y(function(d) { return yScale(d['y']); });
+            svg.append("path")
+               .data([data])
+               .attr("fill", "none")
+               .attr("stroke", "red")
+               .attr("stroke-linejoin", "round")
+               .attr("stroke-linecap", "round")
+               .attr("stroke-width", 1)
+               .attr("d", vline(data));
+           // x-axis
+           svg.append("g")
+              .attr("transform", "translate(0," + height + ")")
+              .call(d3.axisBottom(xScale));
+           svg.append("text")
+              .attr("class", "label")
+              .text("X")
+              .attr("x", width)
+              .attr("y", height-5);
+           // y-axis
+           svg.append("g")
+              .call(d3.axisLeft(yScale));
+           svg.append("text")
+              .attr("class", "label")
+              .text("Y")
+              .attr("x", 5)
+              .attr("y", 0);
+         });
+       }
+
+       part5(0);
+       function part5(value){
+           d3.csv("https://raw.githubusercontent.com/SilentsingerZ/SilentSingerZ.github.io/master/INFO4602_Project2/data/YiMan/major.csv", function(error, data) {
+               //console.log(data);
+               if (error) throw error;
+               console.log(data);
+               //set the width and height
+               var w = 600;
+               var h = 550;
+               var margin = {top:20, right: 20, bottom:30, left: 50}; // Margin around visualization
+               var vals = ['Major_Program_Name', 'Number']; // List of data attributes
+               var xVal = vals[0]; // major to plot on x-axis
+               var yVal = vals[1]; // Number to plot on y-axis
+
+               // set the graphy's dimensions of graph
+               var width = 860 - margin.left - margin.right;
+               var height = 550
+               //search on Google (http://www.runoob.com/jquery/jquery-plugin-tooltip.html)
+               //tooltip box
+               var tooltip = d3.select("body").append("div").attr("class", "toolTip");
+
+               // set the ranges
+               var x = d3.scaleLinear().range([-25, width]);
+               var y = d3.scaleLinear().range([height, 0]);
+               var value = function(d) {
+                 return d.value;
+               }
+
+               //search on the website, can help us format the data
+               data.forEach(function(d, i) {
+                   d.i = i + 1;
+               });
+
+               var sortBars=function(){
+                 svg.selectAll("rect")
+                   .sort(function(a,b){
+                     return d3.ascending(a.Number, b.Number);
+                   })
+                   .transition()
+                   .duration(100)
+                 };
+
+               // create SVG element
+               var svg = d3.select("#linegraph5")//select the element
+                           .append("svg")//attach a svg child element to the target element(#one)
+                           .attr("width", width + margin.left + margin.right)//set the SVG's width
+                           .attr("height", height + margin.top + margin.bottom)//set the SVG's height
+                           .append("g")
+                           .attr("transform", "translate(" + margin.left + "," + margin.top + ")" );//from last project
+                           x.domain([-1, data.length]);
+
+               // search on the Google which can help us arrange the data
+               y.domain([0, d3.max(data, function(d) {
+                   return parseFloat(d.Number);
+               })]);
+
+               // Add the bar (http://blog.csdn.net/tianxuzhang/article/details/14092137)
+               var div = d3.select("#lineLabel5").append("div")
+                   .attr("class", "tooltip")
+
+               //select enmpty element which we will create
+               svg.selectAll('bar')
+                   .data(data)
+                   .enter()
+               //get the placeholder element of "enter" and append rect to the corresponding DOM
+                   .append('rect')
+               //set the x-axis, starting from 0 each time. (w / dataset.length return i * (w / dataset.length);
+                   .attr('x', function(d,i) {
+                       return x(d.i)
+                   })
+               //set the y-axis, the postive direction of the y-axis is from the top to down
+               //so the length of the strip is to set the starting point relative to h and move the strip up again.
+               //search on the website
+                   .attr("y", function(d) {
+                       return y(d[yVal]);
+                   })
+                   .attr("width", 17)
+                   .attr("height", function(d) {
+                       return h - y(d.Number)
+                   })
+                   .style('fill', 'black')
+                   //when mouse stop on the bar, it will change to orange
+                   .on('mouseover', function() {
+                       // linkConnect = d.x;
+                       var barc1 = d3.select(this);
+                       barc1.style('fill', 'orange')
+                           .transition()
+                           .duration(5)
+                       barc1.append('svg:title') //tooltip
+                           .text(function(d) {
+                               return "Major: " + d['Major_Program_Name'] + " " + "Number: " + d['Number'];
+
+                           });
+                   })
+                   //when mouse leave, it will change to blue
+                   .on('mouseout', function() {
+                       var barc2 = d3.select(this);
+                       barc2.transition()
+                           .duration(500)
+                           .style("fill", "black");
+                   })
+
+                   //Add the Y axis
+                   svg.append("g")
+
+                      .call(d3.axisLeft(y));
+
+               //Add text labels
+               var yLabel = svg.append("text")
+                   .text("Number")
+           });
+         }
+
+    </script>
+</body>
+</html>
+<script src="project.js"></script>
