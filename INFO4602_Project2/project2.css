@@ -1,0 +1,37 @@
+body {
+    font-family: Finger Paint;
+    font-size: 15px;
+}
+h1{
+  margin-left: 20;
+}
+
+h2 {
+  margin-left: 20;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    stroke-width: 2px;
+    shape-rendering: crispEdges;
+}
+
+.point {
+    fill: #f00;
+    stroke: #000;
+}
+
+.label {
+    text-anchor: middle;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+p {
+  font-size: 12px Bungee Hairline;
+}
+
+.extra { font-size: 200%}

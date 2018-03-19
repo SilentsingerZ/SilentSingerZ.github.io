@@ -1,0 +1,137 @@
+
+<html>
+<head>
+<title>Project 0</title>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="project1.css"></link>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!--Put your D3 import statement between these two lines-->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+<!--Put your D3 import statement between these two lines-->
+</head>
+
+<body>
+  
+
+    <div id="partTwo">
+        <h1>5th Asian Female Student/School year: </h1>
+        <div id="linegraph">
+           
+        </div>
+    </div>
+
+   
+
+    <script type="text/javascript">
+        // Put your part one code here ***********************
+        // Leave this to test your data uploading. All data uploading should be above this line
+     
+
+        
+        // Leave this to test your data uploading. All data uploading should be above this line
+        function checkDataset(dataset) {
+            if (dataset.length == 11)
+                $("#partOne").append("<p>data loaded correctly</p>");
+            else
+                $("#partOne").append("<p>data loaded incorrectly. Try using the debugger to help you find the bug!</p>");
+        }
+        
+        // Put your part two code here ***********************
+              d3.csv("anscombe1.csv", function(error,data) {
+           if (error) throw error;
+          
+                 // First, we will create some constants to define non-data-related parts of the visualization
+                 var w = 700; // Width of our visualization
+                 var h = 500; // Height of our visualization
+                 var xOffset = 40; // Space for x-axis labels
+                 var yOffset = 100; // Space for y-axis labels
+                 var margin = 10; // Margin around visualization
+                 var vals = ['x','y']; // List of data attributes
+                 var xVal = vals[0]; // Value to plot on x-axis
+                 var yVal = vals[1]; // Value to plot on y-axis
+                 // set the dimensions and margins of the graph
+                 var margin = {top:20, right: 20, bottom: 30, left: 50};
+                 var width = 960- margin.left - margin.right;
+                 var height = 500 - margin.top -margin.bottom;
+                 // set the ranges
+                 var x = d3.scaleLinear().range([0, width]);
+                 var y = d3.scaleLinear().range([height,0]);
+                 data.forEach(function(d) {
+                      d[xVal] = +d[xVal];
+                       d[yVal] = +d[yVal];
+          
+                         });
+                      data.sort(function(a,b) {return a.x-b.x});
+                     // Scale the range of the data
+                   x.domain(d3.extent(data, function(d) {return d[xVal];}));
+                  y.domain([0, d3.max(data, function(d) {return d[yVal];})]);
+                 var valueline = d3.line()
+                                   .x(function(d) {return x(d[xVal]);})
+                                   .y(function(d) {return y(d[yVal]);});
+             
+                 var svg = d3.select("#linegraph").append("svg")
+                           .attr("width", width + margin.left+margin.right)
+                           .attr("height", height + margin.top + margin.bottom)
+                           .append("g")
+                           .attr("transform", "translate("+margin.left+","+margin.top+")");
+      
+               
+              
+                 
+                   //Add the line
+                   svg.append("path")
+                      .data([data])
+                      .attr("fill", "none")
+                      .attr("stroke", "red")
+                  .attr("stroke-width", 1.5)
+                      //.attr("d", line);
+                      //.attr("class", "line")
+                      .attr("d", valueline(data));
+                       // Add the scatterplot points
+                          svg.selectAll("circle")
+                       .data(data)
+                        .enter()
+                       .append("circle")
+                             .attr("r", 5)
+                          .attr("cx", function(d){return x(d[xVal]);})
+                     .attr("cy", function(d){ return y(d[yVal]);})
+                      .attr("fill", "blue")
+                      .on("mouseover", function(d,i){
+                          d3.select(this)
+                .attr("fill", "lightblue")
+                .append('svg:title') 
+               .text(function(d) { return "Year: "+ d['x'] + " " + "Asian: " + d['y']; });
+             })
+            .on("mouseout", function(d,i){
+                d3.select(this)
+                .attr("fill", "blue")
+                    })
+           
+      
+                           // Add the X Axis
+                           svg.append("g")
+                              .attr("transform","translate(0," + height+")")
+                              .call(d3.axisBottom(x));
+                            // Add the Y Axis
+                            svg.append("g")
+                               //.attr("transform","translate(0," + height+")")
+                               .call(d3.axisLeft(y));
+                           //Add text labels
+                           var xLabel = svg.append("text")
+                                           .attr("class", "label")
+                                           .text(xVal)
+                                           .attr("x",width-30 )
+                                           .attr("y", height +10,"rotate(90)");
+                           var yLabel = svg.append("text")
+                                           .attr("class", "label")
+                                           .text(yVal)
+                                           .attr("transform","rotate(90)")
+                                           .attr("text-anchor", "start");
+});
+
+        
+    </script>
+</body>
+
+
+</html>
