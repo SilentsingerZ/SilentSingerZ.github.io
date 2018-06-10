@@ -1,2 +1,1 @@
-# CSCI4830
-CSCI 4830 Assignments
+# Website of SilentSingerZ
