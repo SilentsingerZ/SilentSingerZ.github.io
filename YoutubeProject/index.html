@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+
+    <title>Youtube Project</title>
+    <link rel="shortcut icon" href="images/youtube_icon.jpg" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/stroke.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
+    <link rel="stylesheet" type="text/css" href="css/prettyPhoto.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="js/syntax-highlighter/styles/shCore.css" media="all">
+    <link rel="stylesheet" type="text/css" href="js/syntax-highlighter/styles/shThemeRDark.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="js/donutChart.js"></script>
+    <style>
+        body {
+          font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+        }
+
+        label {
+          margin-right: 1rem;
+        }
+
+        fieldset {
+          border: none;
+        }
+
+        legend {
+          font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <div class="container">
+
+            <section id="top" class="section docs-heading">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="big-title text-center">
+                            <p>   </p>
+                            <img src="images/Youtube_Logo.png" alt="" class="Youtube Header Picture" style="height:100%; width:auto;">
+                            <p>   </p>
+                            <p>   </p>
+                            <p>   </p>
+                            <h1>Youtube Data Analysis Project</h1>
+                            <h2>MSBX 5410</h2>
+                            <p class="lead">Fanyi | Freddie | Hathaway | Ivy | Jaydip</p>
+                            <p>   </p>
+                            <p>   </p>
+                            <p>   </p>
+                        </div>
+                        <!-- end title -->
+                    </div>
+                </div>
+
+                <hr>
+
+            </section>
+            <!-- end section -->
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    <nav class="docs-sidebar" data-spy="affix" data-offset-top="1000" data-offset-bottom="200" role="navigation">
+                        <ul class="nav">
+                            <li><a href="#line1">Data Information</a>
+                              <ul class="nav">
+                                  <li><a href="#line1_1">Data Context</a></li>
+                                  <li><a href="#line1_2">Data Content</a></li>
+                              </ul>
+                            <li><a href="#line2">Analysis Topic</a></li>
+                            <li><a href="#line3">Views and Preference</a>
+                              <ul class="nav">
+                                  <li><a href="#line3_1">Views and likes</a></li>
+                                  <li><a href="#line3_2">Correlation Matrix</a></li>
+                                  <li><a href="#line3_3">Regression Analysis</a></li>
+                              </ul>
+                            <!--
+                            <li><a href="#line4">ALL_CAPS and Popularity</a></li>
+                            -->
+                            <li><a href="#line5">Date and Views</a>
+                              <ul class="nav">
+                                  <li><a href="#line5_1">Publish date vs views</a></li>
+                                  <li><a href="#line5_2">Trending date vs views</a></li>
+                              </ul>
+                            <li><a href="#line6">Category and Tags</a>
+                              <ul class="nav">
+                                  <li><a href="#line6_1">Category Analysis</a></li>
+                                  <li><a href="#line6_2">Tags Occurrence</a></li>
+                              </ul>
+                            <li><a href="#line7">Trending of Duration</a>
+                              <ul class="nav">
+                                  <li><a href="#line7_1">Multi-line Chart</a></li>
+                                  <li><a href="#line7_2">Donut Graph</a></li>
+                              </ul>
+
+                        </ul>
+                    </nav >
+                </div>
+                <div class="col-md-9">
+                    <section class="welcome">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Project Introduction<hr></h2>
+                                <div class="row">
+
+                                    <div class="col-md-12 full">
+                                        <div>
+                                          <p>
+                                            This project is a deep analysis on <strong>Trending Youtube Video Statistic</strong>.
+                                            This website will walk you through some data exploration and deeper
+                                            analysis on Youtube Trending Video Statistic in between countries like US,
+                                            Canada, United Kingdom, France and Germany. Moreover, the website also identified
+                                            multiple correlations of several related terms.
+                                          </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- end row -->
+
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="line1" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Data Information <a href="#top">#back to top</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-md-12">
+                              <h4 id="line1_1">Data Context <a href="#top"></a></h4>
+                                <div class="col-md-12 full">
+                                  <div>
+                                  <p> <strong>YouTube</strong>, the world-famous video sharing website,
+                                    maintains a list of the top trending videos on the platform. According
+                                    to Variety magazine, “To determine the year’s top-trending videos,
+                                    YouTube uses a combination of factors including measuring users interactions
+                                    (number of views, shares, comments and likes).
+                                    Note that they’re not the most-viewed videos overall for the calendar year”.
+                                    Top performers on the YouTube trending list are music videos (such as the
+                                    famously virile “Gangam Style”), celebrity and/or reality TV performances,
+                                    and the random dude-with-a-camera viral videos that YouTube is well-known for.
+                                    This dataset is a daily record of the top trending YouTube videos.
+                                    Note that this dataset is a structurally improved version of this dataset.
+                                  </p>
+                                  </div>
+                                </div>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-md-12">
+                              <h4 id="line1_2">Data Content <a href="#top"></a></h4>
+                                <div class="col-md-12 full">
+                                  <div>
+                                  <p> This dataset includes several months (and counting)
+                                    of data on daily trending YouTube videos. Data is included
+                                    for the US, GB, DE, CA, and FR regions (USA, Great Britain,
+                                    Germany, Canada, and France, respectively), with up to 200
+                                    listed trending videos per day.
+                                    <br>   </br>
+                                    Each region’s data is in a separate file. Data includes the video
+                                    title, channel title, publish time, tags, views, likes and dislikes,
+                                    description, and comment count.
+                                    <br>   </br>
+                                    The data also includes a category_id field, which varies between regions.
+                                    To retrieve the categories for a specific video, find it
+                                    in the associated JSON. One such file is included for
+                                    each of the five regions in the dataset.
+                                  </p>
+                                  </div>
+                                </div>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                    </section>
+                    <!-- end section -->
+
+                    <section id="line2" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Analysis Topic <a href="#top">#back to top</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-md-12 full">
+                              <div class="intro2 clearfix">
+                                  <ul style="list-style-type:decimal; font-size:18px; padding-left: 25px;">
+                                      <p>
+                                        <li>Correlation between views, likes, and dislikes.</li>
+                                        <!--<li>Is there a correlation between ALL_CAPS titles and popularity?</li> -->
+                                        <li>Which month would have the most views?</li>
+                                        <li>Occurrence of tags and the popularity of categories in each countries.</li>
+                                        <li>Identifying the duration of trending of each category.</li>
+                                      </p>
+                                  </ul>
+                              </div>
+
+                    </section>
+                    <!-- end section -->
+
+                    <section id="line3" class="section">
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Views and Preference <a href="#top">#back to top</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+
+
+                            <div>
+                              <h4 id="line3_1">Preference Between Countries<a href="#top"></a></h4>
+                              <img id="image3" src="image/j1.png" style="width:760px;height:610px;"/>
+                              <select id="select_JJ">
+                                <option value="image/j1.png" style="width:760px;height:610px;">Country & Views</option>
+                                <option value="image/j2.png" style="width:760px;height:610px;">Log Version</option>
+                              </select>
+                            </div>
+
+                            <br>    </br>
+                            <div>
+                              <h4 id="line3_2">Correlation Matrix<a href="#top"></a></h4>
+                              <img src="image/matrix.png" alt="" class="Correlation Matrix" style="width:750px;height:630px;">
+                            </div>
+
+
+                            <div>
+                              <h4 id="line3_3">Trending date vs Views <a href="#top"></a></h4>
+                              <div class="col-md-6">
+                                <img src="image/j3.png" alt="" class="Regression Analysis" style="width:430px;height:439px;">
+                              </div>
+
+                              <div class="col-md-6">
+                                  <img src="image/j4.png" alt="" class="Regression Analysis" style="width:460px;height:439px;">
+                              </div>
+                            </div>
+
+                        </div>
+                        <!-- end row -->
+
+                    </section>
+                    <!-- end section -->
+                    <!--
+                    <section id="line4" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">ALL_CAPS and Popularity <a href="#top">#back to top</a><hr></h2>
+                                <h3> Is there a correlation between ALL_CAPS titles and popularity? </h3>
+                            </div>
+
+
+                            <div>
+                              <div class="col-md-12">
+                                  <img src="image/Title.png" alt="" class="Regression Analysis" style="width:800px;height:444.44px;">
+                              </div>
+
+                              <div class="col-md-12">
+                                  <img src="image/Likes.png" alt="" class="Regression Analysis" style="width:705px;height:625px;">
+                              </div>
+
+                              <div class="col-md-12">
+                                  <img src="image/comment.png" alt="" class="Regression Analysis" style="width:705px;height:625px;">
+                              </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </section> -->
+                    <!-- end section -->
+
+                    <section id="line5" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Date and Views <a href="#top">#back to top</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                        <h4 id="line5_1">Publish Date vs Views (Static Version)<a href="#top"></a></h4>
+                        <!-- interactive stacked bar chart begin
+                        <svg width="960" height="400"/>
+                        <div class="controls"></div>
+                         interactive stacked bar chart end -->
+
+                        <!-- static stacked bar chart begin -->
+                        <img src="image/publishdatevsviews.png" alt="" class="Trending date vs views" style="width:880px;height:620px;">
+                        <p>(interactive version need to be run in localhost)</p>
+                        <!-- static stacked bar chart end -->
+                        <p>
+                          The graph above is an interactive bar chart that compares total views of each Countries
+                          through 2006 to 2018. Since the data is incompleted and missing many date, you may observe
+                          a lot of empty space in the years before 2013.(interactive version need to be run in localhost)
+                        </p>
+
+                        <br>    </br>
+                        <h4 id="line5_2">Trending Date vs Views <a href="#top"></a></h4>
+                        <!-- stacked bar chart begin -->
+                        <img src="image/trendingdatevsviews.png" alt="" class="Trending date vs views" style="width:810px;height:450px;">
+                        <!-- stacked bar chart end -->
+                        <p>
+                          Here is a completed comparsion of total views in each country from the end of 2017 to
+                          current date. To aviod most uncertainties and errors, we extracted the most integrated
+                          data through the dataset and made bar chart to observe the differences in views.
+                        </p>
+                      </section>
+                    <!-- end section -->
+
+                    <section id="line6" class="section">
+
+                        <div class="row">
+                            <div class="col-md-12 left-align">
+                                <h2 class="dark-text">Category and Tags <a href="#top">#back to top</a><hr></h2>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-md-12">
+                              <h4 id="line6_1">Category Analysis <a href="#top"></a></h4>
+                                <div class="col-md-12 full">
+                                  <div>
+                                    <img id="image" src="image/CA.png" style="width:880px;height:580px;"/>
+                                    <select id="select_Country">
+                                      <option value="image/CA.png">CA</option>
+                                      <option value="image/DE.png">DE</option>
+                                      <option value="image/FR.png">FR</option>
+                                      <option value="image/GB.png">GB</option>
+                                      <option value="image/US.png">US</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <p>
+                                  This bar chart compares the proportion of views in each category and country.
+                                  The proportion was calculated based on the total number of views; therefore, some bars
+                                  of the charts are not representative because of missing values.
+                                </p>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                        <div class="row">
+                            <div class="col-md-12">
+                              <h4 id="line6_2">Tags Occurrence <a href="#top"></a></h4>
+                                <div class="col-md-12 full">
+                                  <div>
+                                    <img id="image2" src="image/Auto & Vehicles.png" style="width:810px;height:450px;"/>
+                                    <select id="select_Category">
+                                      <option value="image/Auto & Vehicles.png">Auto & Vehicles</option>
+                                      <option value="image/Comedy.png">Comedy</option>
+                                      <option value="image/Education.png">Education</option>
+                                      <option value="image/Entertainment.png">Entertainment</option>
+                                      <option value="image/Film & Animation.png">Film & Animation</option>
+                                      <option value="image/Gaming.png">Gaming</option>
+                                      <option value="image/How to & Style.png">How to & Style</option>
+                                      <option value="image/Movie.png">Movie</option>
+                                      <option value="image/Music.png">Music</option>
+                                      <option value="image/News & Politics.png">News & Politics</option>
+                                      <option value="image/People & Blogs.png">People & Blogs</option>
+                                      <option value="image/Pets & Animals.png">Pets & Animals</option>
+                                      <option value="image/Science & Technology.png">Science & Technology</option>
+                                      <option value="image/Shows.png">Shows</option>
+                                      <option value="image/Sports.png">Sports</option>
+                                      <option value="image/Travel & Events.png">Travel & Events</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <p>
+                                  Tag is an interesting function of Youtube. Through analysising these tags, we
+                                  would be albe to discover why people would watch these videos and what would
+                                  make a video trending.
+                                </p>
+                            </div>
+                            <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                    </section>
+                    <!-- end section -->
+
+
+                    <section id="line7" class="section">
+                      <div class="row">
+                          <div class="col-md-12 left-align">
+                              <h2 class="dark-text">Trending of Duration<a href="#top">#back to top</a><hr></h2>
+                          </div>
+                          <!-- end col -->
+                      </div>
+                      <!-- end row -->
+                      <div class="row">
+                          <div class="col-md-12">
+                            <h4 id="line7_1">Multi-line Chart <a href="#top"></a></h4>
+                              <div class="col-md-12 full">
+                                <div>
+                                  <img id="image" src="image/fanyi.png" style="width:880px;height:580px;"/>
+                                </div>
+                              </div>
+                          </div>
+                          <!-- end col -->
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-12">
+                            <h4 id="line7_2">Donut Graph (Static Version)<a href="#top"></a></h4>
+                              <div class="col-md-12 full">
+                                <!-- interactive donut chart begin-->
+                                <!-- <div id="donutchart"></div> -->
+                                <!-- interactive donut chart end-->
+
+                                <!-- static donut chart begin-->
+                                <img id="image" src="image/fanyi2.png" style="width:880px;height:480px;"/>
+                                <!-- static donut chart end-->
+                                <p>(interactive version need to be run in localhost)</p>
+                              </div>
+                          </div>
+                          <!-- end col -->
+                      </div>
+
+                    </section>
+
+
+                </div>
+                <!-- // end .col -->
+
+            </div>
+            <!-- // end .row -->
+
+        </div>
+        <!-- // end container -->
+
+    </div>
+    <!-- end wrapper -->
+
+    <script>
+    // interactive donutChart
+        var donut = donutChart()
+            .width(760)
+            .height(400)
+            .cornerRadius(3) // sets how rounded the corners are on each slice
+            .padAngle(0.015) // effectively dictates the gap between slices
+            .variable('Percentage')
+            .category('Category');
+
+        d3.tsv('data/PercentagevsCategory.tsv', function(error, data) {
+            if (error) throw error;
+            d3.select('#donutchart')
+                .datum(data) // bind data to the div
+                .call(donut); // draw chart in div
+        });
+    </script>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/retina.js"></script>
+    <script src="js/jquery.fitvids.js"></script>
+    <script src="js/wow.js"></script>
+    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/syntax-highlighter/scripts/shCore.js"></script>
+    <script src="js/syntax-highlighter/scripts/shBrushXml.js"></script>
+    <script src="js/syntax-highlighter/scripts/shBrushCss.js"></script>
+    <script src="js/syntax-highlighter/scripts/shBrushJScript.js"></script>
+    <script src="//d3js.org/d3.v4.min.js"></script>
+    <script src="//cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js" charset="utf-8"></script>
+    <script src="js/stackedbarchart.js"></script>
+    <script src="js/stackedbarchart2.js"></script>
+    <script>
+        // change frame height
+        d3.select(self.frameElement).style('height', '660px');
+    </script>
+</body>
+
+</html>
