@@ -442,11 +442,11 @@
                             <h4 id="line7_2">Donut Graph (Static Version)<a href="#top"></a></h4>
                               <div class="col-md-12 full">
                                 <!-- interactive donut chart begin-->
-                                <!-- <div id="donutchart"></div> -->
+                                <div id="donutchart"></div> 
                                 <!-- interactive donut chart end-->
 
                                 <!-- static donut chart begin-->
-                                <img id="image" src="image/fanyi2.png" style="width:880px;height:480px;"/>
+                                <!-- <img id="image" src="image/fanyi2.png" style="width:880px;height:480px;"/> -->
                                 <!-- static donut chart end-->
                                 <p>(interactive version need to be run in localhost)</p>
                               </div>
@@ -479,7 +479,7 @@
             .variable('Percentage')
             .category('Category');
 
-        d3.tsv('data/PercentagevsCategory.tsv', function(error, data) {
+        d3.tsv('https://raw.githubusercontent.com/SilentsingerZ/SilentSingerZ.github.io/master/YoutubeProject/data/PercentagevsCategory.tsv', function(error, data) {
             if (error) throw error;
             d3.select('#donutchart')
                 .datum(data) // bind data to the div
