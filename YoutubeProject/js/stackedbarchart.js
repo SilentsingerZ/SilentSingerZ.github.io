@@ -214,7 +214,7 @@ function createChart (svg, data) {
   }
 }
 
-d3.json('./data/data_Freddie.json', function(error, data){
+d3.json('https://raw.githubusercontent.com/SilentsingerZ/SilentSingerZ.github.io/master/YoutubeProject/data/data_Freddie.json', function(error, data){
 
   //start with the first year selected
   const chart = createChart(document.querySelector('svg'), data)
