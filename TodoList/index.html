@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Todo List </title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+      <!-- LEFT PART -->
+      <div class="left">
+        <!-- GREETING -->
+        <h1 class="background-color" id="lblGreetings"></h1><hr>
+        <!-- NEW TASK INPUT AND ADD BUTTON -->
+        <h3 class="background-color">New Task</h3>
+        <input id="new-task" type="text" autocomplete="off" list="datalist" onkeyup="autoComplete(this.value)" required placeholder="Add a new task"/>
+        <button id="addTask">+</button><br><br><hr>
+        <datalist id="datalist" class="datalist"></datalist>
+        <!-- INCOMPLETE TASKS LIST -->
+        <h3 class="background-color">Todo</h3>
+        <ul id="incomplete-tasks" class="scroll-tasks"></ul><br>
+      </div>
+      
+      <!-- MIDDLE PART -->
+      <div class="middleleft">
+        <!-- ENERGY BAR AND PULSING CIRCLE -->
+        <h1 class="pulsating-circle"></h1>
+        <h1 class="pulsating-circle2"></h1>
+        <h1 class="energybar" id="energypct"></h1>
+      </div>
+      <!-- SCROLL APP MENU BAR -->
+      <div class="scrollmenu">
+        <a href="http://www.google.com" target="_blank" class="fa fa-google"></a>
+        <a href="http://www.linkedin.com" target="_blank" class="fa fa-linkedin"></a>
+        <a href="http://www.youtube.com" target="_blank" class="fa fa-youtube"></a>
+        <a href="https://www.github.com/" target="_blank" class="fa fa-github"></a>
+        <a href="https://wx.qq.com/" target="_blank" class="fa fa-weixin"></a>
+        <a href="http://www.skype.com" target="_blank" class="fa fa-skype"></a>
+        <a href="http://www.yahoo.com" target="_blank" class="fa fa-yahoo"></a>
+        <a href="http://www.instagram.com" target="_blank" class="fa fa-instagram"></a>
+        <a href="http://www.facebook.com" target="_blank" class="fa fa-facebook"></a>
+        <a href="http://www.twitter.com" target="_blank" class="fa fa-twitter"></a>
+      </div>
+      <!-- REBOOT & EJECT BUTTON (FOR FUN) -->
+      <div class="EjectReboot">
+        <button onclick="self.close()">Eject</button>
+        <button onClick="window.location.reload();">Reboot<button>
+      </div><div class="middleright"></div>
+
+      <!-- RIGHT PART -->
+      <div class="right">
+        <!-- TIME INFO -->
+        <center>
+          <h1 class="background-color" id="wds"></h1>
+          <h2 class="background-color" id="Time"></h2>
+          <h3 class="background-color" id="Date"></h3>
+        </center><hr>
+        <!-- COMPLETE TASKS LIST -->
+        <h3 class="background-color">Completed</h3>
+        <ul id="complete-tasks" class="scroll-tasks"></ul>
+      </div>
+    <script type="text/javascript" src="index.js"></script>
+  </body>
+</html>
