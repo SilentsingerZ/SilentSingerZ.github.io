@@ -1,163 +1,133 @@
-// Timer Infos
-let myDate = new Date();
-let days = ("0" + myDate.getDate()).slice(-2)
-let hrs = myDate.getHours();
-let mins = ("0" + myDate.getMinutes()).slice(-2)
-const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday",
-"Friday", "Saturday"];
-let wds = weekdays[myDate.getDay()];
-const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"];
-let months = monthNames[myDate.getMonth()];
-let energypct = ((17.5 - hrs - mins/60)/0.08).toFixed(0) + '%'
-switch (days % 10) {
-  case 1:
-    sufix = "st";
-  case 2:
-    sufix = "nd";
-  case 3:
-    sufix = "rd";
-  default:
-    sufix = "th";
-}
-document.getElementById('wds').innerHTML =wds;
-document.getElementById('Date').innerHTML =months + ' ' + days+sufix;
-document.getElementById('Time').innerHTML =hrs + ':' + mins;
-document.getElementById('energypct').innerHTML =energypct;
-// Greeting Infos
-let greet;
-if (hrs < 12)
-  greet = 'Good Morning!';
-else if (hrs >= 12 && hrs <= 17)
-  greet = 'Good Afternoon!';
-else if (hrs >= 17 && hrs <= 24)
-  greet = 'Good Evening!';
-document.getElementById('lblGreetings').innerHTML = greet;
+import Time from './Time.js';
+import createAutoComplete from './autocomplete.js';
+
+let todolist = new Time(new Date())
+document.getElementById('wds').innerHTML = todolist.getWeekdayName();
+document.getElementById('Time').innerHTML = todolist.getTimeInfo();
+document.getElementById('energypct').innerHTML = todolist.getEnergyPct();
+document.getElementById('lblGreetings').innerHTML = todolist.getGreetingInfo();
+document.getElementById('Date').innerHTML = todolist.getMonthInfo();
+
+let {autoComplete, getTaskMemory, addTaskMemory} = createAutoComplete();
+
+document.getElementById("new-task").addEventListener('keyup', (e) => {
+  autoComplete(e.target.value);
+});
 
 //Todolist Functions
 let newTask = document.querySelector('#new-task');
 let addTaskBtn = document.querySelector('#addTask');
 let toDoUl = document.querySelector("#incomplete-tasks");
-let completeUl =  document.querySelector("#complete-tasks");
-var taskmemory = [];
+let completeUl = document.querySelector("#complete-tasks");
 
 //Creating the actural task list item
-var createNewTask = (task) => {
+const createNewTask = (task) => {
   if (newTask.value.length > 0) {
-  var listItem=document.createElement("li");
-  var label = document.createElement("label");
-  label.innerText = task;
-  label.className = "background-color"
-  var deleteBtn = document.createElement("button");
-  deleteBtn.innerText ="Delete";
-  deleteBtn.className = "delete";
-  var doneBtn = document.createElement("button");
-  doneBtn.innerText ="Done";
-  doneBtn.className = "done";
-  listItem.appendChild(label)
-  listItem.appendChild(deleteBtn);
-  listItem.appendChild(doneBtn);
-  return listItem;
-}
+    let listItem = document.createElement("li");
+    let label = document.createElement("label");
+    label.innerText = task;
+    label.className = "background-color"
+    let deleteBtn = document.createElement("button");
+    deleteBtn.innerText = "Delete";
+    deleteBtn.className = "delete";
+    let doneBtn = document.createElement("button");
+    doneBtn.innerText = "Done";
+    doneBtn.className = "done";
+    listItem.appendChild(label)
+    listItem.appendChild(deleteBtn);
+    listItem.appendChild(doneBtn);
+    return listItem;
+  }
 };
 
 //ADD THE NEW TASK INTO ACTUAL INCOMPLETE LIST
-var addTask = () => {
-  var listItem = createNewTask(newTask.value);
+const addTask = () => {
+  let listItem = createNewTask(newTask.value);
   //PUSH UNIQUE VALUE TO TASK MEMORY
-  if(taskmemory.indexOf(newTask.value) === -1) {
-    taskmemory.push(newTask.value);
+  if (getTaskMemory().indexOf(newTask.value) === -1) {
+    addTaskMemory(newTask.value);
   }
-  toDoUl.appendChild(listItem);
-  newTask.value="";
+  toDoUl.insertBefore(listItem, toDoUl.childNodes[0])
+  newTask.value = "";
   bindIncompleteItems(listItem, doneTask);
 };
 
-var input = document.getElementById("new-task");
-input.addEventListener("keyup", function(event) {
+const input = document.getElementById("new-task");
+input.addEventListener("keyup", function (event) {
   if (event.keyCode === 13) {
-   event.preventDefault();
-   document.getElementById("addTask").click();
+    event.preventDefault();
+    document.getElementById("addTask").click();
   }
 });
 
-var doneTask = function(){
+const doneTask = function () {
   console.log("Move Task to complete");
   //GRAB THE CHECKBOX'S PARENT ELEMENT, THE LI IT'S IN
-  var listItem = this.parentNode;
+  let listItem = this.parentNode;
+  console.log(listItem)
   //CREATE AND INSERT THE DONE BUTTON
-  var undoBtn = document.createElement("button"); // <button>
+  let undoBtn = document.createElement("button"); // <button>
   undoBtn.innerText = "Undo";
   undoBtn.className = "undo";
   listItem.appendChild(undoBtn);
-  var doneBtn = listItem.querySelector("button.done");
+  let doneBtn = listItem.querySelector("button.done");
   doneBtn.remove();
+  let deleteBtn = listItem.querySelector("button.delete");
+  deleteBtn.className = "delete2";
   //PLACE IT INSIDE THE COMPLETED LIST
   completeUl.appendChild(listItem);
   bindCompleteItems(listItem, undoTask);
 };
 
-var undoTask = function(){
+const undoTask = function () {
   console.log("Move Task to incomplete");
   //GRAB THE CHECKBOX'S PARENT ELEMENT, THE LI IT'S IN
-  var listItem = this.parentNode;
+  let listItem = this.parentNode;
   //CREATE AND INSERT THE DONE BUTTON
-  var doneBtn = document.createElement("button"); // <button>
-  doneBtn.innerText ="Done";
+  let doneBtn = document.createElement("button"); // <button>
+  doneBtn.innerText = "Done";
   doneBtn.className = "done";
   listItem.appendChild(doneBtn);
-  var undoBtn = listItem.querySelector("button.undo");
+  let undoBtn = listItem.querySelector("button.undo");
   undoBtn.remove();
+  let deleteBtn = listItem.querySelector("button.delete2");
+  deleteBtn.className = "delete";
   //PLACE IT INSIDE THE COMPLETED LIST
   toDoUl.appendChild(listItem);
   bindIncompleteItems(listItem, doneTask);
 };
 
 //DELETE TASK FUNCTIONS
-var deleteTask = function(){
+const deleteTask = function () {
   console.log("Deleting task...");
-  var listItem = this.parentNode;
-  var ul = listItem.parentNode;
+  let listItem = this.parentNode;
+  let ul = listItem.parentNode;
   ul.removeChild(listItem);
 };
 
 //BINDING EACH OF THE ELEMENTS THE INCOMPLETE&COMPLETE TASK LIST
-var bindIncompleteItems = function(taskItem, doneTask){
+const bindIncompleteItems = function (taskItem, doneTask) {
   console.log("Binding the incomplete list...");
   //BIND DONE & DELETE BUTTON
-  var doneBtn=taskItem.querySelector("button.done");
-	var deleteBtn=taskItem.querySelector("button.delete");
-  doneBtn.onclick=doneTask;
-  deleteBtn.onclick=deleteTask;
+  let doneBtn = taskItem.querySelector("button.done");
+  let deleteBtn = taskItem.querySelector("button.delete");
+  doneBtn.onclick = doneTask;
+  deleteBtn.onclick = deleteTask;
 };
-var bindCompleteItems = function(taskItem, undoTask){
+const bindCompleteItems = function (taskItem, undoTask) {
   console.log("Binding the complete list...");
   //BIND UNDO & DELETE BUTTON
-  var undoBtn=taskItem.querySelector("button.undo");
-	var deleteBtn=taskItem.querySelector("button.delete");
-  undoBtn.onclick=undoTask;
-  deleteBtn.onclick=deleteTask;
+  let undoBtn = taskItem.querySelector("button.undo");
+  let deleteBtn = taskItem.querySelector("button.delete2");
+  undoBtn.onclick = undoTask;
+  deleteBtn.onclick = deleteTask;
 };
 
-for(var i=0; i < toDoUl.children.length; i++) {
+for (let i = 0; i < toDoUl.children.length; i++) {
   bindIncompleteItems(toDoUl.children[i], doneTask);
 }
-for(var i=0; i < completeUl.children.length; i++) {
+for (let i = 0; i < completeUl.children.length; i++) {
   bindCompleteItems(completeUl.children[i], undoTask);
 }
 
 addTaskBtn.addEventListener("click", addTask);
-
-// AUTO COMPLETE
-var autoComplete = (value) => {
-  document.getElementById('datalist').innerHTML = '';
-  l = value.length;
-  for (let i=0; i<taskmemory.length; i++) {
-    if(((taskmemory[i].toLowerCase()).indexOf(value.toLowerCase()))>-1) { 
-      const node = document.createElement("option"); 
-      const val = document.createTextNode(taskmemory[i]); 
-      node.appendChild(val); 
-      document.getElementById("datalist").appendChild(node); 
-    } 
-  }
-}

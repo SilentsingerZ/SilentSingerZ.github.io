@@ -1,71 +1,62 @@
 /* SETTING BACKGROUND AND BODY FONT*/
 body {
-  background: radial-gradient(#42a7f5, black);;
+  display: grid;
+  height: 100%;
+  grid-template-columns: 35% 30% 35%;
+  grid-template-rows: 80% 20%;
+  background: radial-gradient(#42a7f5, black);
   color: #42a7f5;
   font-family: Courier New;
   background-position: center;
 }
+
+/* SPLITTING PAGE */
+.left {
+grid-area: 1 / 1 / 3 / 1
+}
+.midup{
+  grid-area: 1 / 2 / 2 / 3
+}
+.midbottom{
+  grid-area: 2 / 2 / 3 / 3
+}
+.right {
+grid-area: 1 / 3 / 3 / 4
+}
+
+
 .background-color {
-  color: #000;
-  max-width: 700px;
-  background: rgba(255, 253, 160, 1);
-  background: -webkit-linear-gradient( left, #ffffff 0%, #42a7f5 25%, #97b1fb 50%, #00ffff 100%) repeat;
-  -webkit-background-clip: text;
-  -ms-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -ms-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-  text-fill-color: transparent;
-  -webkit-animation-name: masked-animation;
-  -webkit-animation-duration: 80s;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
+color: #000;
+max-width: 700px;
+/* background: rgba(255, 253, 160, 1); */
+background: -webkit-linear-gradient( left, #ffffff 0%, #42a7f5 25%, #97b1fb 50%, #00ffff 100%) repeat;
+-webkit-background-clip: text;
+-ms-background-clip: text;
+-moz-background-clip: text;
+background-clip: text;
+-webkit-text-fill-color: transparent;
+/* -ms-text-fill-color: transparent;
+-moz-text-fill-color: transparent; */
+text-fill-color: transparent;
+-webkit-animation-name: masked-animation;
+-webkit-animation-duration: 80s;
+-webkit-animation-iteration-count: infinite;
+-webkit-animation-timing-function: linear;
 }
 @-webkit-keyframes masked-animation {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: -8000px -3000px;
-  }
+0% {
+  background-position: 0 0;
+}
+100% {
+  background-position: -8000px -3000px;
+}
 }
 
 /* SETTING HORIZONTAL LINE STYLE */
 hr {display: block;
-    border: 0; 
-    border-top: 1px solid #42a7f5; 
-    padding: 0; 
-  }
-
-/* SPLITTING PAGE */
-.left {
-  float: left;
-  width: 30%;
-}
-.middleleft {
-  float: left;
-  width: 30%;
-  z-index: -1;
-  position: fixed;
-  top: 50%;
-  left: 58%;
-  margin-top: -50px;
-  margin-left: -100px;
-}
-.middleright {
-  float: left;
-  position: relative;
-  width: 5%;
-  margin-top: 5%;
-  left: 20%;
-}
-.right {
-  position: absolute;
-  right: 0;
-  float: left;
-  width: 30%;
+  border: 0; 
+  border-top: 1px solid #42a7f5; 
+  padding: 0; 
 }
 
 /* SETTING SCROLL LIST FOR INCOMPLETE&COMPLETE TASKS */
@@ -114,6 +105,26 @@ button {
   cursor: pointer;
   transition: 0.3s;
 }
+.delete {
+  position: absolute;
+  margin-top:0.4%;
+  left: 23.5%;
+}
+.done {
+  position: absolute;
+  margin-top:0.4%;
+  left: 27%;
+}
+.delete2 {
+  position: absolute;
+  margin-top:0.5%;
+  right: 12%;
+}
+.undo {
+  position: absolute;
+  margin-top:0.5%;
+  right: 1%;
+}
 .buttonsuperlink {
   background: none;
   border: 0px;
@@ -139,11 +150,11 @@ button:hover {
 
 /* SETTING ENERGYBAR AND PULSATING OR BREATHING CIRCLE */
 .energybar {
-  top: -20px;
-  left: -35px;
   position: absolute;
+  margin-top: 20%;
+  margin-left: 12%;
   font-size: 40px;
-  z-index: 1;
+  z-index: 4;
   color: #000;
   max-width: 700px;
   background: rgba(255, 253, 160, 1);
@@ -163,8 +174,8 @@ button:hover {
 }
 .pulsating-circle {
   position: absolute;
-  top: 0;
-  left: 0;
+  margin-top: 21.5%;
+  margin-left: 14.5%;
   font-size: 40px;
   -webkit-transform: translateX(-50%) translateY(-50%);
           transform: translateX(-50%) translateY(-50%);
@@ -174,8 +185,9 @@ button:hover {
 }
 .pulsating-circle2 {
   position: absolute;
+  margin-top: 21.5%;
+  margin-left: 14.5%;
   background-color: #00629b;
-  top: 5px;
   width: 140px;
   height: 140px;
   -webkit-transform: translateX(-50%) translateY(-50%);
@@ -185,7 +197,7 @@ button:hover {
 }
 .pulsating-circle:before {
   content: '';
-  position: relative;
+  position: absolute;
   display: block;
   width: 200%;
   height: 200%;
@@ -200,8 +212,8 @@ button:hover {
 .pulsating-circle:after {
   content: '';
   position: absolute;
-  left: 0;
-  top: 0;
+  /* left: 0;
+  top: 0; */
   display: block;
   width: 100%;
   height: 100%;
@@ -260,21 +272,14 @@ button:hover {
 
 /* SETTING EJECT&REBOOT BUTTON STYLE */
 .EjectReboot {
-  position: absolute;
-  margin-left: 1%;
-  bottom: 5%;
   width: 100%;
   text-align: center;
-  align-items: center;
   font-size: 10px;
 }
 
 /* SETTING SCROLLING APP MENU STYLE */
 div.scrollmenu {
-  position: absolute;
-  margin-left: 35%;
-  bottom: 10%;
-  width: 28%;
+  width: 100%;
   background-color: transparent;
   overflow: auto;
   white-space: nowrap;
@@ -296,7 +301,7 @@ div.scrollmenu a {
   -webkit-animation-iteration-count: infinite;
   -webkit-animation-timing-function: linear;
   text-align: center;
-  padding: 16px;
+  padding: 5%;
   height: 200%;
   text-decoration: none;
 }
